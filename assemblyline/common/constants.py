@@ -8,6 +8,9 @@ DISPATCH_TASK_HASH = 'dispatch-active-submissions'
 DISPATCH_RUNNING_TASK_HASH = 'dispatch-active-tasks'
 SCALER_TIMEOUT_QUEUE = 'scaler-timeout-queue'
 
+SERVICE_UPDATE_KEYS = 'service-update-auth-keys'
+SERVICE_UPDATE_TIMES = 'service-update-timestamp'
+
 
 # Some pure functions for getting queue lengths (effectively for appending/prepending constants to strings)
 def service_queue_name(service: str) -> str:

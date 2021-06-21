@@ -40,10 +40,24 @@ class CacheStore(object):
         self.datastore.cached_file.save(new_key, {'expiry_ts': now_as_iso(ttl), 'component': self.component})
         self.filestore.put(new_key, data)
 
+    def upload(self, cache_key, path, ttl=DEFAULT_CACHE_LEN):
+        if not COMPONENT_VALIDATOR.match(cache_key):
+            raise ValueError("Invalid cache_key for cache item. "
+                             "(Only letters, numbers, underscores and dots allowed)")
+
+        new_key = f"{self.component}_{cache_key}" if self.component else cache_key
+
+        self.datastore.cached_file.save(new_key, {'expiry_ts': now_as_iso(ttl), 'component': self.component})
+        self.filestore.upload(new_key, path, force=True)
+
     def get(self, cache_key):
         new_key = f"{self.component}_{cache_key}" if self.component else cache_key
 
         return self.filestore.get(new_key)
+
+    def download(self, cache_key, path):
+        new_key = f"{self.component}_{cache_key}" if self.component else cache_key
+        return self.filestore.download(new_key, path)
 
     def exists(self, cache_key):
         new_key = f"{self.component}_{cache_key}" if self.component else cache_key
