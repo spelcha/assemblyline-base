@@ -91,8 +91,8 @@ class Service(odm.Model):
     is_external = odm.Boolean(default=False)
     licence_count = odm.Integer(default=0)
 
-    name = odm.Keyword(store=True, copyto="__text__")
-    version = odm.Keyword(store=True)
+    name: str = odm.Keyword(store=True, copyto="__text__")
+    version: str = odm.Keyword(store=True)
 
     # Should the result cache be disabled for this service
     disable_cache = odm.Boolean(default=False)
